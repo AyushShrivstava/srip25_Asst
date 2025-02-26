@@ -9,7 +9,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 
 def plot_sk_confusion_matrix(y_true, y_pred):
     """
-    This function uses sklean confusion matrix function and plots the confusion matrix
+    This function uses sklearn confusion matrix function and plots the confusion matrix
     :param y_true: true values
     :param y_pred: predicted values
     :return: None
@@ -17,7 +17,7 @@ def plot_sk_confusion_matrix(y_true, y_pred):
     cm = confusion_matrix(y_true, y_pred)
     plt.imshow(cm, cmap=plt.cm.Blues)
     plt.colorbar()
-    plt.title("Confusion Matrix from sklean")
+    plt.title("Confusion Matrix from sklearn")
     plt.xlabel("Model Predicted Values")
     plt.ylabel("Ground Truth Values")
     plt.xticks([0, 1])
@@ -26,9 +26,9 @@ def plot_sk_confusion_matrix(y_true, y_pred):
     for i in range(2):
         for j in range(2):
             if i == j:
-                plt.text(i, j, cm[i, j], color='white')
+                plt.text(j, i, cm[i, j], color='white')
             else:
-                plt.text(i, j, cm[i, j], color='black')      
+                plt.text(j, i, cm[i, j], color='black')      
     plt.show()
 
 
@@ -48,17 +48,17 @@ clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)    
 
 # Uncomment the below lines to compare the metrics
-print("sklern Accuracy Score: {:.3f}".format(accuracy_score(y_test, y_pred)))
-# print("custom Accuracy Score: {:.3f}".format(custom_accuracy_score(y_test, y_pred)))
+print("sklearn Accuracy Score: {:.3f}".format(accuracy_score(y_test, y_pred)))
+print("custom Accuracy Score: {:.3f}".format(custom_accuracy_score(y_test, y_pred)))
 
 print("sklearn Precision Score: {:.3f}".format(precision_score(y_test, y_pred, average='macro')))
-# print("custom Precision Score: {:.3f}".format(custom_precision_score(y_test, y_pred)))
+print("custom Precision Score: {:.3f}".format(custom_precision_score(y_test, y_pred)))
 
 print("sklearn Recall Score: {:.3f}".format(recall_score(y_test, y_pred, average='macro')))
-# print("custom Recall Score: {:.3f}".format(custom_recall_score(y_test, y_pred)))
+print("custom Recall Score: {:.3f}".format(custom_recall_score(y_test, y_pred)))
 
-print("skleanr F1 Score: {:.3f}".format(f1_score(y_test, y_pred, average='macro')))
-# print("custom F1 Score: {:.3f}".format(custom_f1_score(y_test, y_pred)))
+print("sklearn F1 Score: {:.3f}".format(f1_score(y_test, y_pred, average='macro')))
+print("custom F1 Score: {:.3f}".format(custom_f1_score(y_test, y_pred)))
 
 plot_sk_confusion_matrix(y_test, y_pred)
-# plot_confusion_matrix(y_test, y_pred
+plot_confusion_matrix(y_test, y_pred)
