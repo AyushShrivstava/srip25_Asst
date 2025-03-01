@@ -26,8 +26,9 @@ def custom_accuracy_score(y_true, y_pred):
     :param y_pred: predicted values
     :return: accuracy score
     """
-    # Write your code here and remove the pass
-    pass
+    true=np.sum(y_test==y_pred)
+    accuracy = true/len(y_test)
+    return accuracy
 
 def custom_precision_score(y_true, y_pred):
     """
@@ -36,8 +37,10 @@ def custom_precision_score(y_true, y_pred):
     :param y_pred: predicted values
     :return: precision score
     """
-    # Write your code here and remove the pass
-    pass
+    class_zero_precision = np.sum((y_test==0) & (y_pred==0))/np.sum(y_pred==0)
+    class_one_precision = np.sum((y_test==1) & (y_pred==1))/np.sum(y_pred==1)
+    precision = (class_zero_precision + class_one_precision)/2
+    return precision
 
 def custom_recall_score(y_true, y_pred):
     """
@@ -46,8 +49,10 @@ def custom_recall_score(y_true, y_pred):
     :param y_pred: predicted values
     :return: recall score
     """
-    # Write your code here and remove the pass
-    pass
+    class_zero_recall = np.sum((y_test==0) & (y_pred==0))/np.sum(y_test==0)
+    class_one_recall = np.sum((y_test==1) & (y_pred==1))/np.sum(y_test==1)
+    recall_score = (class_zero_recall+class_one_recall)/2
+    return recall_score
 
 def custom_f1_score(y_true, y_pred):
     """
@@ -56,8 +61,10 @@ def custom_f1_score(y_true, y_pred):
     :param y_pred: predicted values
     :return: f1 score
     """
-    # Write your code here and remove the pass
-    pass
+    class_zero_f1 = 2/(1/(np.sum((y_test==0) & (y_pred==0))/np.sum(y_test==0)) + 1/(np.sum((y_test==0) & (y_pred==0))/np.sum(y_pred==0)))
+    class_one_f1 = 2/(1/(np.sum((y_test==1) & (y_pred==1))/np.sum(y_test==1)) + 1/(np.sum((y_test==1) & (y_pred==1))/np.sum(y_pred==1)))
+    f1_score = (class_zero_f1 + class_one_f1)/2
+    return f1_score
 
 def plot_confusion_matrix(y_true, y_pred):
     """
@@ -66,5 +73,24 @@ def plot_confusion_matrix(y_true, y_pred):
     :param y_pred: predicted values
     :return: None
     """
-    # Write your code here and remove the pass
-    pass
+    l=[]
+    tp = np.sum((y_pred == 1) & (y_test == 1))
+    tn = np.sum((y_pred == 0) & (y_test == 0))
+    fp = np.sum((y_pred == 1) & (y_test == 0))
+    fn = np.sum((y_pred == 0) & (y_test == 1))
+    l.append(tn)
+    l.append(fn)
+    l.append(fp)
+    l.append(tp)
+    l=np.array(l)
+    l=l.reshape((2,2))
+    plt.imshow(l, cmap='Blues')
+    for i in range(2):
+        for j in range(2):
+            plt.annotate(l[j][i], xy=(i,j))
+    plt.colorbar()
+    plt.xlabel('Predicted Values')
+    plt.ylabel('Actual Values')
+    plt.title('Confusion Matrix')
+    plt.xticks([0,1])
+    plt.yticks([0,1])
